@@ -2,13 +2,15 @@ package it.polito.tdp.alien;
 
 import java.util.*;
 
-public class Word {
+public class WordEnhanced {
 	
 	private String alienWord;
 	private String translation;
 	
+	LinkedList<String> tradMultiple = new LinkedList<String>();
 	
-	public Word(String alienWord, String translation) {
+	public WordEnhanced(String alienWord, String translation) {
+
 		this.alienWord = alienWord;
 		this.translation = translation;
 	}
@@ -28,14 +30,24 @@ public class Word {
 
 
 	public String getTranslation() {
-		return translation;
+		String ris = "";
+		ris = translation + "\n" + this.toStringList(tradMultiple);
+		return ris;
 	}
 
 
 
 	public void setTranslation(String translation) {
-		this.translation = translation;
+		tradMultiple.add(translation);
 	}
 
-
+	public String toStringList(LinkedList<String> elenco){
+		String ris = "";
+		for(String s : elenco){
+			ris += s + "\n";
+		}
+		return ris;
+	}
+	
 }
+

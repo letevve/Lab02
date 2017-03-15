@@ -1,6 +1,7 @@
 package it.polito.tdp.alien;
 
 import java.net.URL;
+
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
@@ -11,9 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.util.regex.*;
+
 public class AlienController {
 	
 	AlienDictionary a = new AlienDictionary();
+	//DetectSpecialCharacter d = new DetectSpecialCharacter();
+			
 	
     @FXML
     private ResourceBundle resources;
@@ -43,18 +48,18 @@ public class AlienController {
     @FXML
     void doTranslate(ActionEvent event) {
     	String inserimento = txtInsert.getText();
-    	inserimento.split(" ");
-    	
+    	//inserimento.split(" ");
+    	inserimento = inserimento.toLowerCase();
     	String[] arrayLettura = inserimento.split(" ");
     	
-    	if(inserimento.matches(".*[a-zA-Z].*")==false){
-	    	inserimento = inserimento.toLowerCase();
+    	if(inserimento.matches(".*[a-zA-Z]*")==true){
 	    		
 	    	if(arrayLettura.length == 1){
 	    		//restituire traduzione
 	    		String parola = arrayLettura[0];
 	    		String result = a.translateWord(parola);
 	    		txtResult.setText(result);
+	    		txtInsert.clear();
 	    	}
 	    	
 	    	if(arrayLettura.length == 2){
@@ -63,6 +68,7 @@ public class AlienController {
 	    		String parola2 = arrayLettura[1];
 	    		a.addWord(parola1, parola2);
 	    		txtResult.setText("Parola inserita nel dizionario");
+	    		txtInsert.clear();
 	    	}
 	    	
 	    	if(arrayLettura.length >2){
@@ -74,7 +80,7 @@ public class AlienController {
 	    		txtResult.setText("Inserire almeno una parola");
 	    	}
     	}
-    	else{
+    	else {
     		txtResult.setText("Inserisci una parola in un formato valido");
     	}
     }
